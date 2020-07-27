@@ -1,11 +1,13 @@
 # PLAYFAIR CIPHER
 # JULIO ANDYAN JORDAN ARYANTO (24060117130078)
+# DIPONEGORO UNIVERSITY
+# IT 17
 from array import *
 from nltk import *
 
-
-#fungsi untuk mengecek apakah ada huruf yang sama pada plain teks
-#def equal, digunakan untuk menambahan huruf dummy pada 2 huruf yang sama
+# languages ind/eng
+#fungsi untuk mengecek apakah ada huruf yang sama pada plain teks / function to check whether there are the same letters in plain text
+#def equal, digunakan untuk menambahan huruf dummy pada 2 huruf yang sama / def equal, used to add dummy letters to the same 2 letters
 def Equal(teks, D):
     k = 0
     for i in range(len(teks)):
@@ -24,8 +26,8 @@ def Equal(teks, D):
     return teks
 
 
-#inisialisasi
-# kunci untuk tabel playfair adalah ATHEM
+#inisialisasi/ initiation
+# kunci untuk tabel playfair adalah PRACTICE MAKES PERFECT / key :  PRACTICE MAKES PERFECT
 TPlayfair = [
     ["P", "R", "A", "C", "T"],
     ["I", "E", "M", "K", "S"],
@@ -34,22 +36,22 @@ TPlayfair = [
     ["V", "W", "X", "Y", "Z"]
 ]
 
-# karakter dummy D
+# dummy Dummy D
 D = "X"
 
 def begin():
-    #List untuk hasil ekripsi
+    #List untuk hasil proses dekripsi dan enkripsi / list for decryption - encryption result
     TCipher = []
               
-    #mulai
+    #mulai/ start
 
 
-    #Relaisasi
-    #-----Tahap 1 -----
+    #Relaisasi/ realitation
+    #-----Tahap 1 ----- / phase 1
     Pteks = input("masukan plain/cipher teks : ")
-    #mengubah semua inputan teks menjadi kapital
+    #mengubah semua inputan teks menjadi kapital / capitalized the input
     Pteks = Pteks.upper()
-    #menghilangkan spasi di Pteks
+    #menghilangkan spasi di Pteks / removing space from Pteks
     Ateks = []
     for j in range(len(Pteks)):
         if Pteks[j] != ' ' :
@@ -60,58 +62,58 @@ def begin():
                 
     print ("=============================")
 
-    print ("Apa yang ingin Dilakukan ?")
+    print ("Apa yang ingin Dilakukan ?")  #what you want to do ?
     print ("1. Enkripsi")
     print ("2. Dekripsi")
     print ("=============================")
 
-    pil = input("Masukan Pilihan Anda;")        
-    #mengecek huruf berurutan yang sama
+    pil = input("Masukan Pilihan Anda;")    #input your choice    
+    #mengecek huruf berurutan yang sama / check the same consecutive letters
     if pil == '1':
         teks = Equal(Ateks, D)
     else :
         teks = Ateks
 
-    #mengecek apakah Ateks Ganjil
+    #mengecek apakah Ateks Ganjil / Check whether odd Ateks or not
     if len(teks) % 2 != 0:
         teks.insert(len(teks)+1, D)
-    #-----End Tahap 1 -----
+    #-----End Tahap 1 ----- / end phase 1
     
-    #----- Tahap 2 -----
-    #Operasi bigram
+    #----- Tahap 2 ----- / phase 2
+    #Operasi bigram / bigrams operation
     teks = bigrams(teks)
-    BList1= [] #ini hasil dari fungsi bigram python
-    BList = [] # ini adalah bigram  yang akan digunakan
+    BList1= [] #ini hasil dari fungsi bigram python / list for bigram result
+    BList = [] # ini adalah bigram  yang akan digunakan/ this is the bigram that will be used
     for grams in teks:
         BList1.append(grams)
 
-    #BList diisi disini
+    #BList diisi disini / inputing blist
     for i in range(len(BList1)):
         if i == 0 :
             BList.append(BList1[i])
         else : #i!=0
             if i % 2 == 0:
                 BList.append(BList1[i])
-    #-----End Tahap 2-----
+    #-----End Tahap 2-----/ end phase 2
 
-    #----- Tahap 3-----
-    #Mulai operasi Playfair
+    #----- Tahap 3----- / phase 3
+    #Mulai operasi Playfair/ begin playfair operation
     for i in range(len(BList)):
-        #inisialisasi baris kolom
+        #inisialisasi baris kolom/ initiate rows and columns
         b = []
         k = []
         for j in range(2):
             P = BList[i][j]
-            #perhitungan untuk mendapatkan indeks dari
-            #Plainteks P pada TPlayfair
+            #perhitungan untuk mendapatkan indeks dari 
+            #Plainteks P pada TPlayfair / calculation to get the index of Plaintext P on TPlayfair
             for s in range(5):
                 for p in range(5):
                     if TPlayfair[s][p] == P :
                         b.append(s)
                         k.append(p)
-        #enkripsi
+        #enkripsi / encryption
         if pil == '1':
-            #apabila dalam 1 kolom yang sama
+            #apabila dalam 1 kolom yang sama / if in the same column
             if k[0] == k[1] :
                 b1 = b[0] + 1
                 b2 = b[1] + 1
@@ -122,7 +124,7 @@ def begin():
                 k1 = k[0]
                 k2 = k[1]
                 
-            #apabila dalam 1 baris yang sama
+            #apabila dalam 1 baris yang sama / if in the same row
             elif b[0] == b[1] :
                 b1 = b[0]
                 b2 = b[1]
@@ -133,23 +135,21 @@ def begin():
                 if k2 == 5:
                     k2 =0
                 
-            #apabila posisi baris dan kolom beda
+            #apabila posisi baris dan kolom beda / if row and column positions are different
             else:
                 k.reverse()
                 b1 = b[0]
                 b2 = b[1]
                 k1 = k[0]
                 k2 = k[1]
-            #pada posisi ini sudah didapat index chiper
-            #dari tabel Playfair
-            #mulai mengambil nilai chipper dari TPlayfair
-            #dan memasukan ke array TCipher
+            #pada posisi ini sudah didapat index chiper dari tabel Playfair mulai mengambil nilai chipper dari TPlayfair dan memasukan ke array TCipher
+            #right now the cipher index has been obtained from the Playfair table starting to take the chipper value from TPlayfair and insert it into the TCipher array
             TCipher.append(TPlayfair[b1][k1])
             TCipher.append(TPlayfair[b2][k2])
             
-        #Dekripsi
+        #Dekripsi / Decryption
         elif pil == '2':
-            #apabila dalam 1 kolom yang sama
+            #apabila dalam 1 kolom yang sama /  if in the same column
             if k[0] == k[1] :
                 b1 = b[0] - 1
                 b2 = b[1] - 1
@@ -160,7 +160,7 @@ def begin():
                 k1 = k[0]
                 k2 = k[1]
                 
-            #apabila dalam 1 baris yang sama
+            #apabila dalam 1 baris yang sama / if in the same row
             elif b[0] == b[1] :
                 b1 = b[0]
                 b2 = b[1]
@@ -171,17 +171,15 @@ def begin():
                 if k2 == -1:
                     k2 =4
                 
-            #apabila posisi baris dan kolom beda
+            #apabila posisi baris dan kolom beda / if row and column positions are different
             else:
                 k.reverse()
                 b1 = b[0]
                 b2 = b[1]
                 k1 = k[0]
                 k2 = k[1]
-            #pada posisi ini sudah didapat index chiper
-            #dari tabel Playfair
-            #mulai mengambil nilai chipper dari TPlayfair
-            #dan memasukan ke array TCipher
+            #pada posisi ini sudah didapat index chiper dari tabel Playfair mulai mengambil nilai chipper dari TPlayfair dan memasukan ke array TCipher
+            #right now the cipher index has been obtained from the Playfair table starting to take the chipper value from TPlayfair and insert it into the TCipher array
             TCipher.append(TPlayfair[b1][k1])
             TCipher.append(TPlayfair[b2][k2])
         else :
